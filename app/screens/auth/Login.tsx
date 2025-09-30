@@ -1,0 +1,73 @@
+import { View, Text , StyleSheet, TextInput, Alert} from 'react-native'
+import React,{useState}from 'react'
+import RegisterComponenet from '../../components/InputBox';
+import InputBox from '../../components/InputBox';
+import SubmitButton from '../../components/SubmitButton';
+
+const Login = ({navigation}) => {
+      const [email,setEmail] = useState('');
+      const [password,setPassword] = useState('');  
+      const [loading,setLoading] = useState(false);
+    
+      const handleSubmit = () => {
+        try{
+         
+          setLoading(true);
+          if( !email || !password){
+            setLoading(false);
+           return Alert.alert("Please fill all the fields");
+          }
+          setLoading(false);
+           console.log("data",{email,password});
+           setEmail('');
+           setPassword('');  
+        }catch(error){ 
+          setLoading(false);
+          console.log(error);
+        }
+      }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.pageTitle}>Register</Text>
+      
+      <InputBox  inputTitle={'Email'}
+      keyboardType='email-address'  value={email} setvalue={setEmail}/>
+      <InputBox  inputTitle={'Password'}
+      secureTextEntry ={true}  value={password} setvalue={setPassword }/>
+      <View>
+      {/* <Text>{JSON.stringify({name,email,password}, null,4)}</Text> */}
+   <SubmitButton buttonTitle={'Login'} loading={loading} handleSubmit={handleSubmit}/>
+
+   <Text style={styles.text}>Don't have an account? <Text style={styles.linkText} onPress={() => navigation.navigate('Register')}>Register</Text></Text>
+    </View>
+    </View>  
+    
+  )
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'peachpuff',
+  },
+  pageTitle:{
+    fontSize: 28,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginBottom: 25,
+   
+  },
+  text:{
+    alignSelf:'center',
+    marginTop:20,
+    fontSize:16,
+  },
+  linkText:{
+    color:'red',
+    fontWeight:'bold',
+    textDecorationLine:'underline',
+  }
+});
+
+export default Login
