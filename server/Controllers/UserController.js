@@ -1,5 +1,6 @@
 const UserModel = require('../Models/UserModel');
 const { hashPassword, comparePassword } = require('../Helpers/authHelper'); 
+const JWt = require('jsonwebtoken');
 
 //Register Controller
 const registerController =async (req, res) => {
@@ -24,7 +25,7 @@ const registerController =async (req, res) => {
         })
     }
 
-        // //check user
+        //check user
 
         const existingUSer = await UserModel.findOne({email});
         if(existingUSer){
@@ -33,8 +34,8 @@ const registerController =async (req, res) => {
                 message: "user created registered please login"
             })
         }
-        // Hash password
 
+        // Hash password
         const hashedPassword = await hashPassword(password);
         //save new user
         const newUser = new UserModel({name, email, password: hashedPassword});
@@ -128,12 +129,15 @@ const loginController = async (req, res) => {
       });
     }
 
+    // Generate JWT Token
+    const token = await JWt.sign({_id: user._id}, process.env.JWT_SECRET,{expiresIn:'7d'});
     //paswword undefine
     user.password = undefined; // Hide password
     // Success
     return res.status(200).json({
       success: true,
       message: "Login Successful",
+      token,
       user,
     });
 
