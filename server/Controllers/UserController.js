@@ -1,4 +1,7 @@
 const UserModel = require('../Models/UserModel');
+const { hashPassword, comparePassword } = require('../Helpers/authHelper'); 
+
+//Register Controller
 const registerController =async (req, res) => {
     try{
         const {name, email, password} = req.body;
@@ -30,9 +33,11 @@ const registerController =async (req, res) => {
                 message: "user created registered please login"
             })
         }
-        
+        // Hash password
+
+        const hashedPassword = await hashPassword(password);
         //save new user
-        const newUser = new UserModel({name, email, password});
+        const newUser = new UserModel({name, email, password: hashedPassword});
         await newUser.save();
 
         return res.status(200).json({
@@ -49,4 +54,97 @@ const registerController =async (req, res) => {
     }
 }
 
-module.exports = { registerController };
+
+//Login Controller
+// const loginController = async (req, res) => {
+//     try{
+//         const {email ,password} = req.body;
+//         if(!email || !password){
+//             console.log(email, password);
+//             console.log("Req body:", req.body);
+//             res.status(400).json({
+//                 success: false,
+//                 message: "Please provide email and password"
+//             });
+//         }
+//      //Find USer
+//      const user = await UserModel.findOne({email});
+//      if(!user){
+//         return res.status(500).json({
+//             success: false,
+//             message: "Email is not registered"
+//         })
+//      }
+//      //Match Password
+//      const match = await comparePassword(password, user.password);
+//      if(!match){
+//         return res.status(500).json({
+//             success: false,
+//             message: "Invalid username or Password"
+//         })
+//      }
+//      return res.status(200).json({
+//         success: true,
+//         message: "Login Successful",
+//         user,
+//      });
+//     }catch (error) {
+// console.log(error);
+// return res.status(500).json({
+//     success: false,
+//     message: "Error in login API",
+//     error
+// })
+//     }
+// }
+const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      console.log("Req body:", req.body);
+      return res.status(400).json({   // 400 Bad Request (not 500)
+        success: false,
+        message: "Please provide email and password"
+      });
+    }
+
+    // Find User
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({  
+        success: false,
+        message: "Email is not registered"
+      });
+    }
+
+    // Match Password
+    const match = await comparePassword(password, user.password);
+    if (!match) {
+      return res.status(401).json({   
+        success: false,
+        message: "Invalid username or password"
+      });
+    }
+
+    //paswword undefine
+    user.password = undefined; // Hide password
+    // Success
+    return res.status(200).json({
+      success: true,
+      message: "Login Successful",
+      user,
+    });
+
+  } catch (error) {
+    console.error("Error in loginController:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error in login API",
+      error
+    });
+  }
+};
+
+module.exports = { registerController , loginController};
