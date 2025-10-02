@@ -3,6 +3,7 @@ import React,{useState}from 'react'
 import RegisterComponenet from '../../components/InputBox';
 import InputBox from '../../components/InputBox';
 import SubmitButton from '../../components/SubmitButton';
+import axios from 'axios';
 
 
 
@@ -12,7 +13,7 @@ const Register = ({navigation}) => {
   const [password,setPassword] = useState('');  
   const [loading,setLoading] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     try{
      
       setLoading(true);
@@ -21,11 +22,14 @@ const Register = ({navigation}) => {
        return Alert.alert("Please fill all the fields");
       }
       setLoading(false);
+       const {data} = await axios.post('http://localhost:8080/api/v1/user/register',{name,email,password});
+       Alert.alert(data && data.message);
        console.log("data",{name,email,password});
        setName('');
        setEmail('');
        setPassword('');  
     }catch(error){ 
+      Alert.alert(error.response.data.message);
       setLoading(false);
       console.log(error);
     }

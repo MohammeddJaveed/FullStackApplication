@@ -3,13 +3,15 @@ import React,{useState}from 'react'
 import RegisterComponenet from '../../components/InputBox';
 import InputBox from '../../components/InputBox';
 import SubmitButton from '../../components/SubmitButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 const Login = ({navigation}) => {
       const [email,setEmail] = useState('');
       const [password,setPassword] = useState('');  
       const [loading,setLoading] = useState(false);
     
-      const handleSubmit = () => {
+      const handleSubmit = async() => {
         try{
          
           setLoading(true);
@@ -18,14 +20,25 @@ const Login = ({navigation}) => {
            return Alert.alert("Please fill all the fields");
           }
           setLoading(false);
+
+          const {data} = await axios.post('http://localhost:8080/api/v1/user/login',{email,password});
+          await AsyncStorage.setItem('@auth', JSON.stringify(data));
+
+            Alert.alert(data && data.message);
            console.log("data",{email,password});
            setEmail('');
            setPassword('');  
         }catch(error){ 
+          Alert.alert(error.response.data.message);
           setLoading(false);
           console.log(error);
         }
       }
+      const getLocalSTorage = async() => {
+        const data = await AsyncStorage.getItem('@auth');
+        console.log("data from local storage", data);
+      }
+      getLocalSTorage();
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Register</Text>

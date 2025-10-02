@@ -40,6 +40,7 @@ const registerController =async (req, res) => {
         //save new user
         const newUser = new UserModel({name, email, password: hashedPassword});
         await newUser.save();
+        console.log("Saved in DB:", newUser);
 
         return res.status(200).json({
             success: true,
