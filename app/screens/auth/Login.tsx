@@ -25,7 +25,7 @@ const Login = ({navigation}) => {
           }
           setLoading(false);
           
-          const {data} = await axios.post('http://localhost:8080/api/v1/user/login',{email,password});
+          const {data} = await axios.post('user/login',{email,password});
 setState(data);
           await AsyncStorage.setItem('@auth', JSON.stringify(data));
             Alert.alert(data && data.message);
