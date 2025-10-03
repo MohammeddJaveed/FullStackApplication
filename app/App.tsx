@@ -11,6 +11,8 @@ import Register from './screens/auth/Register';
 import Login from './screens/auth/Login';
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native';
+import { AuthProvider } from './context/authContext';
+import Home from './screens/Home';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -18,12 +20,15 @@ function App() {
   return (
     <SafeAreaProvider style ={styles.container}>
       {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
+      <AuthProvider>
       <NavigationContainer>
    <stack.Navigator initialRouteName='Login'>
     <stack.Screen name='Register' component={Register} options={{headerShown:false}}/>
     <stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
+    <stack.Screen name='Home' component={Home} options={{headerShown:false}}/>
    </stack.Navigator>
       </NavigationContainer>
+      </AuthProvider>
     
     </SafeAreaProvider>
   );

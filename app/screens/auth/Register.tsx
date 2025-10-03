@@ -22,8 +22,9 @@ const Register = ({navigation}) => {
        return Alert.alert("Please fill all the fields");
       }
       setLoading(false);
-       const {data} = await axios.post('http://localhost:8080/api/v1/user/register',{name,email,password});
+       const {data} = await axios.post('user/register',{name,email,password});
        Alert.alert(data && data.message);
+        navigation.navigate('Login');
        console.log("data",{name,email,password});
        setName('');
        setEmail('');
