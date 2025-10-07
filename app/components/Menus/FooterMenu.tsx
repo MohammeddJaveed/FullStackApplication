@@ -1,26 +1,29 @@
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native'
 import React from 'react'
-import Icon from "react-native-vector-icons/Ionicons";
-// import Icon from "react-native-vector-icons/FontAwesome5";
+import { Home, PlusSquare, Info, User } from 'lucide-react-native';
+
 const FooterMenu = () => {
   return (
     <View style={styles.container}>
-        <TouchableOpacity>
-           <Icon name="home" size={24} color="#000" solid />
-      <Text>Home</Text>
-    </TouchableOpacity>
-    <TouchableOpacity>
-        <Icon name="plus-square" size={24} color="#000" solid />
-      <Text>Post</Text>
-    </TouchableOpacity>
-    <TouchableOpacity>
-        <Icon name="infocircle" size={24} color="#000" solid />
-      <Text>About</Text>
-    </TouchableOpacity>
-    <TouchableOpacity>
-        <Icon name="user" size={24} color="#000" solid />
-      <Text>Account</Text>
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.item}>
+        <Home size={28} color="black" />
+        <Text>Home</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item}>
+        <PlusSquare size={28} color="black" />
+        <Text>Post</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item}>
+        <Info size={28} color="black" />
+        <Text>About</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item}>
+        <User size={28} color="black" />
+        <Text>Account</Text>
+      </TouchableOpacity>
     </View>
     
   )
@@ -30,7 +33,10 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-around',
         padding:10
-    }
+    },
+    item: {
+    alignItems: 'center',
+  },
 })
 
 export default FooterMenu

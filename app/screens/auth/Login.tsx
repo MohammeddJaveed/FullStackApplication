@@ -9,7 +9,7 @@ import { AuthContext } from '../../context/authContext';
 
 
 const Login = ({navigation}) => {
-  //G;obal state
+  //Global state
   const [state, setState] = useContext(AuthContext);
       const [email,setEmail] = useState('');
       const [password,setPassword] = useState('');  
@@ -17,16 +17,15 @@ const Login = ({navigation}) => {
     
       const handleSubmit = async() => {
         try{
-         
           setLoading(true);
           if( !email || !password){
             setLoading(false);
            return Alert.alert("Please fill all the fields");
           }
           setLoading(false);
-          
           const {data} = await axios.post('user/login',{email,password});
-setState(data);
+          setState(data);
+         
           await AsyncStorage.setItem('@auth', JSON.stringify(data));
             Alert.alert(data && data.message);
             navigation.navigate('Home');
@@ -44,7 +43,7 @@ setState(data);
         const data = await AsyncStorage.getItem('@auth');
         console.log("data from local storage", data);
       }
-      getLocalSTorage();
+      // getLocalSTorage();
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>Register</Text>

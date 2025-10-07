@@ -8,7 +8,6 @@ const Home = () => {
     const[state] = useContext(AuthContext);
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Home</Text>
       <Text>{JSON.stringify(state, null,4)}</Text>
       <FooterMenu/>
     </SafeAreaView>

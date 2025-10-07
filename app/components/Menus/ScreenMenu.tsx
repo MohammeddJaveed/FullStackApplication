@@ -1,0 +1,35 @@
+import { View, Text } from 'react-native'
+import React, { useContext } from 'react'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import Register from '../../screens/auth/Register';
+import Login from '../../screens/auth/Login';
+import Home from '../../screens/Home';
+import { AuthContext } from '../../context/authContext';
+import HeaderMenu from './HeaderMenu';
+
+
+
+const ScreenMenu = () => {
+
+    //Global State
+    const[state] = useContext(AuthContext);
+
+    // Authenticated USer
+    const AuthenticatedUser = state?.user && state?.token;
+
+    const Stack = createNativeStackNavigator();
+  return (
+    <Stack.Navigator > 
+        {AuthenticatedUser ? (
+          <Stack.Screen name="Home" component={Home} options={{title:'My Application ',headerTitleAlign:'left', headerRight: () => <HeaderMenu />, }}/>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+            <Stack.Screen name="Register" component={Register}  options={{ headerShown: false }}/>
+          </>
+        )}
+      </Stack.Navigator>
+  )
+}
+
+export default ScreenMenu
