@@ -9,6 +9,7 @@ import HeaderMenu from './HeaderMenu';
 import Post from '../../screens/Post';
 import About from '../../screens/About';
 import Account from '../../screens/Account';
+import EditProfileMenu from './EditProfileMenu';
 
 
 
@@ -34,6 +35,9 @@ const ScreenMenu = () => {
     gestureEnabled: false,
   }} />
           <Stack.Screen name="Account" component={Account} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
+    gestureEnabled: false,
+  }} />
+  <Stack.Screen name="EditProfileMenu" component={EditProfileMenu} options={{ title: 'My Application ', headerTitleAlign: 'left', headerRight: () => <HeaderMenu />, headerLeft: () => null,
     gestureEnabled: false,
   }} />
           </>
