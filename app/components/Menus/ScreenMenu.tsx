@@ -6,6 +6,9 @@ import Login from '../../screens/auth/Login';
 import Home from '../../screens/Home';
 import { AuthContext } from '../../context/authContext';
 import HeaderMenu from './HeaderMenu';
+import Post from '../../screens/Post';
+import About from '../../screens/About';
+import Account from '../../screens/Account';
 
 
 
@@ -21,11 +24,24 @@ const ScreenMenu = () => {
   return (
     <Stack.Navigator > 
         {AuthenticatedUser ? (
-          <Stack.Screen name="Home" component={Home} options={{title:'My Application ',headerTitleAlign:'left', headerRight: () => <HeaderMenu />, }}/>
+          <><Stack.Screen name="Home" component={Home} options={{ title: 'My Application ', headerTitleAlign: 'left', headerRight: () => <HeaderMenu />, headerLeft: () => null,
+    gestureEnabled: false,
+  }} />
+          <Stack.Screen name="Post" component={Post} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu /> , headerLeft: () => null,
+    gestureEnabled: false,
+  }} />
+          <Stack.Screen name="About" component={About} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
+    gestureEnabled: false,
+  }} />
+          <Stack.Screen name="Account" component={Account} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
+    gestureEnabled: false,
+  }} />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
             <Stack.Screen name="Register" component={Register}  options={{ headerShown: false }}/>
+            
           </>
         )}
       </Stack.Navigator>

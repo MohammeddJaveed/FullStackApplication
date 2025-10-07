@@ -1,27 +1,35 @@
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native'
 import React from 'react'
-import { Home, PlusSquare, Info, User } from 'lucide-react-native';
+import { Home, PlusSquare, Info, User, Route } from 'lucide-react-native';
+import { useNavigation,useRoute} from '@react-navigation/native';
 
 const FooterMenu = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.item}>
-        <Home size={28} color="black" />
+      <TouchableOpacity style={styles.item} onPress={() => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
+  }}>
+        <Home size={28} color={route.name === 'Home' ? 'orange' : 'black'}/>
         <Text>Home</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.item}>
-        <PlusSquare size={28} color="black" />
+      <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('Post')}}>
+        <PlusSquare size={28} color={route.name === 'Post' ? 'orange' : 'black'} />
         <Text>Post</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.item}>
-        <Info size={28} color="black" />
+      <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('About')}}>
+        <Info size={28} color={route.name === 'About' ? 'orange' : 'black'} />
         <Text>About</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.item}>
-        <User size={28} color="black" />
+      <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('Account')}}>
+        <User size={28} color={route.name === 'Account' ? 'orange' : 'black'} />
         <Text>Account</Text>
       </TouchableOpacity>
     </View>
