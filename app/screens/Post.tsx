@@ -4,8 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import FooterMenu from '../components/Menus/FooterMenu'
 import { AuthContext } from '../context/authContext'
 import axios from 'axios'
+import { postContext } from '../context/PostContext'
+
 
 const Post = ({navigation}) => {
+
+  //Global State
+  const [posts,setPosts] = useContext(postContext)
   //local state
   const [title,setTitle] = useState('')
   const [description,setDescription] = useState('')
@@ -21,6 +26,7 @@ const Post = ({navigation}) => {
   
       const {data} = await axios.post('/post/create-post',{title,description})
       setLoading(false)
+      setPosts([...posts,data?.post]);
       Alert.alert(data.message)
       navigation.navigate('Home')
 
