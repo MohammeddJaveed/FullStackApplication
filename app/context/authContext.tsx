@@ -11,10 +11,16 @@ const AuthProvider =({children})=>{
     //Global state
     const [state, setState] = useState({
         user:null,
-        toker:'',
+        token:'',
     })
+
+
+
 //Default axios settings
+axios.defaults.headers.common["Authorization"] = `Bearer ${state?.token}`
 axios.defaults.baseURL = 'http://localhost:8080/api/v1/';
+
+
 //Initial Local Storage data
 useEffect(()=>{
 const loadLocalStorageData = async()=>{
@@ -24,6 +30,7 @@ const loadLocalStorageData = async()=>{
 }
 loadLocalStorageData();
 },[])
+
 return(
     <AuthContext.Provider value={[state, setState]} >
         {children}

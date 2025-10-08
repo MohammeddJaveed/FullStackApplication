@@ -13,7 +13,7 @@ const EditProfileMenu = () => {
 
   //Global State
   const [state, setState] = useContext(AuthContext);
-  const {user} = state;
+  const {user,token} = state;
 
   //Local State for form inputs
   const[name, setName] = useState(user?.name);
@@ -26,7 +26,10 @@ const EditProfileMenu = () => {
     // Handle profile update logic here
     try{
    setLoading(true)
-   const {data} = await axios.put('user/update-user',{name,password,email})
+   const {data} = await axios.put('user/update-user',{
+    name,
+    password,
+    email})
    setLoading(false)
    let UD = JSON.stringify(data)
    setState({...state, user:UD.UpdatedUser})
