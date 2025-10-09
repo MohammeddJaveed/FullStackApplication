@@ -10,6 +10,7 @@ import Post from '../../screens/Post';
 import About from '../../screens/About';
 import Account from '../../screens/Account';
 import EditProfileMenu from './EditProfileMenu';
+import Myposts from '../../screens/Myposts';
 
 
 
@@ -32,6 +33,9 @@ const ScreenMenu = () => {
     gestureEnabled: false,
   }} />
           <Stack.Screen name="About" component={About} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
+    gestureEnabled: false,
+  }} />
+  <Stack.Screen name="MyPosts" component={Myposts} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
     gestureEnabled: false,
   }} />
           <Stack.Screen name="Account" component={Account} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,

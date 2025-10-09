@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native'
 import React from 'react'
-import { Home, PlusSquare, Info, User, Route } from 'lucide-react-native';
+import { Home, PlusSquare, Info, User, List } from 'lucide-react-native';
 import { useNavigation,useRoute} from '@react-navigation/native';
 
 const FooterMenu = () => {
@@ -23,9 +23,9 @@ const FooterMenu = () => {
         <Text>Post</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('About')}}>
-        <Info size={28} color={route.name === 'About' ? 'orange' : 'black'} />
-        <Text>About</Text>
+      <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('MyPosts')}}>
+        <List size={28} color={route.name === 'About' ? 'orange' : 'black'} />
+        <Text>My posts</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('Account')}}>

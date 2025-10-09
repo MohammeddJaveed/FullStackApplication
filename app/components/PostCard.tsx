@@ -17,10 +17,11 @@ const PostCard = ({ posts }) => {
 
           <View style={styles.footerCard}>    
             <View style={styles.footerItem}>
-              <User size={15} color="orange" />
-              <Text style={styles.author}>
+             
+          {post?.postedBy?.name &&( <Text style={styles.author}>
+             <User size={15} color="orange" />
                 {post?.postedBy?.name || "Unknown"}
-              </Text>
+              </Text>)}    
             </View>
 
             <View style={styles.footerItem}>
