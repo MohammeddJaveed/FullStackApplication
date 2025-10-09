@@ -24,7 +24,7 @@ const FooterMenu = () => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.item} onPress={() => {navigation.navigate('MyPosts')}}>
-        <List size={28} color={route.name === 'About' ? 'orange' : 'black'} />
+        <List size={28} color={route.name === 'MyPosts' ? 'orange' : 'black'} />
         <Text>My posts</Text>
       </TouchableOpacity>
 

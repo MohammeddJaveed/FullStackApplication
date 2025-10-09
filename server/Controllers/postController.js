@@ -85,4 +85,25 @@ const getUserPostsController =async(req,res)=>{
     }
 
 }
-module.exports = {createPostController,getAllPostController,getUserPostsController}
+
+//DElete user posts
+const deleteUserPosts = async(req,res) =>{
+    try{
+        const {id} = req.params;
+        await PostModel.findByIdAndDelete({_id:id})
+        res.status(200).send({
+            success:true,
+            message: "Your Post has been deleted"
+        })
+
+    }catch(error){
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Delete post API",
+            error
+        })
+    }
+
+}
+module.exports = {createPostController,getAllPostController,getUserPostsController,deleteUserPosts}

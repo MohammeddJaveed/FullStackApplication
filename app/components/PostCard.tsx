@@ -1,10 +1,51 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useState } from "react";
 import moment from "moment";
-import { User, Clock } from "lucide-react-native";
+import { User, Clock, Trash } from "lucide-react-native";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 
-const PostCard = ({ posts }) => {
+
+const PostCard = ({ posts,myPostScreen}) => {
+  const navigation = useNavigation();
+
+  // local state
+  const [loading,setLoading] = useState(false)
+
+  //Handle delete prompt
+  const handleDeletePrompt =(id)=>{
+    Alert.alert('Attention', 'Are you sure you want to delete this post?',
+    [{
+      text : 'cancel',
+      onPress :()=>{
+         console.log("cancel pressed")
+      },
+    },
+    {
+      text : 'Delete',
+      onPress:()=>{
+        handleDeletePost(id)
+      }
+    }
+   ])
+  }
+
+  //delete post data
+  const handleDeletePost =async(id)=>{
+    try{
+    setLoading(true)
+    const {data} = await axios.delete(`/post/delete-post/${id}`)
+    setLoading(false)
+    Alert.alert(data?.message)
+    navigation.navigate('Home')
+    }catch(error){
+      setLoading(false),
+      console.log(error)
+      Alert.alert("something went wrong")
+    }
+
+  }
   return (
     <View>
         {posts?.length === 0 ? <Text style={[styles.heading,{color:'red'}]}>No Content Please add posts to display</Text>:
@@ -12,6 +53,16 @@ const PostCard = ({ posts }) => {
 
       {posts?.map((post, i) => (
         <View key={i} style={styles.card}>
+         <View>
+     {myPostScreen &&(
+      // <TouchableOpacity>
+        <Text style={{alignSelf:'flex-end'}}>
+             <Trash size={18} color="red" onPress={()=> handleDeletePrompt(post?._id)}/>
+          </Text>
+      // </TouchableOpacity>
+      
+        )}     
+         </View>
           <Text style={styles.title}>{post?.title}</Text>
           <Text style={styles.description}>{post?.description}</Text>
 

@@ -34,7 +34,7 @@ const Myposts = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{marginTop:-57}}>
-        <PostCard posts={posts} />
+        <PostCard posts={posts} myPostScreen={true} />
       </ScrollView>
       
       <FooterMenu/>
