@@ -1,14 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React, { useState } from "react";
 import moment from "moment";
-import { User, Clock, Trash } from "lucide-react-native";
+import { User, Clock, Trash, Pen } from "lucide-react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import EditModal from "./EditModal";
 
 
 
 const PostCard = ({ posts,myPostScreen}) => {
   const navigation = useNavigation();
+   const [modalVisible, setModalVisible] = useState(false); 
+   const[post,setPost] = useState({})
 
   // local state
   const [loading,setLoading] = useState(false)
@@ -50,18 +53,26 @@ const PostCard = ({ posts,myPostScreen}) => {
     <View>
         {posts?.length === 0 ? <Text style={[styles.heading,{color:'red'}]}>No Content Please add posts to display</Text>:
       <Text style={styles.heading}>Total Posts: {posts.length}</Text>}
-
+      
+      {myPostScreen&& <EditModal 
+      modalVisible={modalVisible} 
+      setModalVisible={setModalVisible}
+      post={post}
+      /> }
       {posts?.map((post, i) => (
         <View key={i} style={styles.card}>
          <View>
-     {myPostScreen &&(
-      // <TouchableOpacity>
-        <Text style={{alignSelf:'flex-end'}}>
-             <Trash size={18} color="red" onPress={()=> handleDeletePrompt(post?._id)}/>
-          </Text>
-      // </TouchableOpacity>
-      
-        )}     
+          
+           {myPostScreen &&(      
+             <View style={{flexDirection:'row', justifyContent:'flex-end'}}>
+               <Text style={{paddingHorizontal:15}}>
+               <Pen size={18} color="blue" onPress={()=> console.log('clicked')} onPress={() => {setPost(post), setModalVisible(true)}}/>
+               </Text>
+               <Text>
+               <Trash size={18} color="red" onPress={()=> handleDeletePrompt(post?._id)}/> 
+             </Text>
+          </View>
+            )}     
          </View>
           <Text style={styles.title}>{post?.title}</Text>
           <Text style={styles.description}>{post?.description}</Text>
