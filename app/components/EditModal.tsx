@@ -22,7 +22,7 @@ const EditModal = ({modalVisible, setModalVisible,post}) => {
           }
         );
         Alert.alert(data?.message)
-        navigation.navigate('Home')
+        navigation.push('MyPosts')
 
       }catch(error){
         setLoading(false)
