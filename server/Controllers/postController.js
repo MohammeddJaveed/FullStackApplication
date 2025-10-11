@@ -1,4 +1,3 @@
-const { request } = require("express");
 const PostModel = require("../Models/PostModel");
 
 //Create Post
@@ -106,4 +105,40 @@ const deleteUserPosts = async(req,res) =>{
     }
 
 }
-module.exports = {createPostController,getAllPostController,getUserPostsController,deleteUserPosts}
+
+//Update Post
+const updateUserPost = async(req,res)=>{
+
+        const post = await PostModel.findById({_id: req.params.id})
+        try{
+        const {title, description}= req.body
+        if(!title || !description){
+            res.status(500).send(
+                {
+                 success: true,
+                 message: "Please provide all the fields"
+                }
+            )} 
+            const updatePost = await PostModel.findByIdAndUpdate (
+                {_id: req.params.id},
+                {
+                    title : title || post?.title,
+                    description : description || post?.description
+                },
+                {new:true}
+            );
+            res.status(200).send({
+                success:true,
+                message: "Post updated successfully",
+                updatePost
+            })
+    }catch(error){
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in UpdatePost API"
+        })
+    }
+
+}
+module.exports = {createPostController, updateUserPost,getAllPostController,getUserPostsController,deleteUserPosts}

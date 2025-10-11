@@ -1,6 +1,6 @@
 const express = require('express');
 const { requireSignIn } = require('../Controllers/UserController');
-const { createPostController, getAllPostController, getUserPosts, getUserPostsController, deleteUserPosts } = require('../Controllers/postController');
+const { createPostController, getAllPostController, getUserPosts, getUserPostsController, deleteUserPosts, updateUserPost } = require('../Controllers/postController');
 
 //router object
 const router = express.Router();
@@ -17,6 +17,9 @@ router.get('/get-user-posts',requireSignIn,getUserPostsController)
 
 //Delete Post
 router.delete('/delete-post/:id',requireSignIn,deleteUserPosts)
+
+//Update Post
+router.put('/update-post/:id',requireSignIn,updateUserPost)
 
 //export
 module.exports = router;

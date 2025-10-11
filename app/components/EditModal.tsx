@@ -1,10 +1,36 @@
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {Alert, Modal, StyleSheet, Text, Pressable, View, TextInput} from 'react-native';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
+
 const EditModal = ({modalVisible, setModalVisible,post}) => {
+    const navigation = useNavigation();
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    //Handle Update 
+    const updatePostHandler = async(id)=>{
+      try{
+        setLoading(true);
+        const {data} = await axios.put(`/post/update-post/${id}`,
+          {
+            title,
+            description
+          }
+        );
+        Alert.alert(data?.message)
+        navigation.navigate('Home')
+
+      }catch(error){
+        setLoading(false)
+        console.log(error)
+        // Alert.alert(error)
+      }
+
+    }
 
     //initial
     useEffect(()=>{
@@ -28,14 +54,14 @@ const EditModal = ({modalVisible, setModalVisible,post}) => {
             <View style={styles.modalView}>
               <Text style={styles.modalText}>Update Post</Text>
               <Text style={styles.modalText} >Title</Text>
-              <TextInput style={styles.input} value={title}/>
+              <TextInput style={styles.input} value={title} onChangeText={(Text) =>{setTitle(Text)}}/>
               <Text style={styles.modalText}>Description</Text>
-               <TextInput style={[styles.input, { height: 80 }]} value={description}/>
+               <TextInput style={[styles.input, { height: 80 }]} value={description} multiline={true} onChangeText={(Text) =>{setDescription(Text)}}/>
                <View style = {styles.btnContainer}>
 
                  <Pressable
                 style={ styles.button}
-                onPress={() => setModalVisible(!modalVisible)}>
+                onPress={() => {updatePostHandler(post && post._id),setModalVisible(!modalVisible)}}>
                 <Text style={styles.textStyle}>Update</Text>
               </Pressable>
                <Pressable
@@ -77,7 +103,7 @@ const styles = StyleSheet.create({
   },
   input:{
     backgroundColor:'lightgray',
-    height:30,
+    // height:30,
     borderRadius:7,
     marginBottom:15,
     padding:10
