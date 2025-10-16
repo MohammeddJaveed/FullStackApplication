@@ -15,9 +15,25 @@ const HeaderMenu = () => {
     Alert.alert('Logged out');
     }
 
+    const handlepopup =()=>{
+       Alert.alert('Attention', 'Are you sure you want to Logout',
+    [{
+      text : 'cancel',
+      onPress :()=>{
+         console.log("cancel pressed")
+      },
+    },
+    {
+      text : 'Yes',
+      onPress:()=>{
+        handleLogout()
+      }
+    }
+   ])
+  }
   return (
     <View>
-      <TouchableOpacity onPress={handleLogout} style={{backgroundColor: '#ff4400ff',
+      <TouchableOpacity onPress={handlepopup} style={{backgroundColor: '#ff4400ff',
     paddingVertical: 15,
     borderRadius: 8,
     marginTop: 10,
