@@ -71,8 +71,10 @@ const Post = ({navigation}) => {
       </TouchableOpacity>
       </View>
     
-
-     <FooterMenu /> 
+<View style={{justifyContent:'flex-end', marginBottom:-20}}>
+   <FooterMenu /> 
+</View>
+    
     </SafeAreaView>
   )
 }
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f8f9fa",
     padding: 20,
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
   },
   heading: {
     fontSize: 24,

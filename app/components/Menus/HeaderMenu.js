@@ -17,8 +17,15 @@ const HeaderMenu = () => {
 
   return (
     <View>
-      <TouchableOpacity onPress={handleLogout} style={{flexDirection:'row', alignItems:'center'}}>
-                <LogOut size={24} color="#000" />
+      <TouchableOpacity onPress={handleLogout} style={{backgroundColor: '#ff4400ff',
+    paddingVertical: 15,
+    borderRadius: 8,
+    marginTop: 10,
+    alignItems: 'center', }}>
+                {/* <LogOut size={24} color="#000" /> */}
+                <Text style ={{color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,}}> Logout</Text>
          </TouchableOpacity>
     </View>
   )

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import FooterMenu from '../components/Menus/FooterMenu'
 import { AuthContext } from '../context/authContext'
 import { useNavigation,useRoute} from '@react-navigation/native';
+import HeaderMenu from '../components/Menus/HeaderMenu'
 
 
 
@@ -66,12 +67,17 @@ const Account = () => {
                    <TouchableOpacity style={styles.buttonStyle} onPress={() => {navigation.navigate('EditProfileMenu')}}>
          <Text style={styles.textStyle}>EDIT PROFILE</Text>
          </TouchableOpacity>
+             <HeaderMenu />
                 </View>
-         
+     
         
 
       <View style={{flex:1,justifyContent:'flex-end'}}>
-        <FooterMenu/>
+        
+        <View style={{justifyContent:'flex-end', marginBottom:-20}}>
+           <FooterMenu/>
+        </View>
+       
       </View>
 </SafeAreaView>
   )

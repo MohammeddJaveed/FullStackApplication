@@ -26,22 +26,32 @@ const ScreenMenu = () => {
   return (
     <Stack.Navigator > 
         {AuthenticatedUser ? (
-          <><Stack.Screen name="Home" component={Home} options={{ title: 'My Application ', headerTitleAlign: 'left', headerRight: () => <HeaderMenu />, headerLeft: () => null,
-    gestureEnabled: false,
+          <><Stack.Screen name="Home" component={Home} options={{ title: 'My Application ', 
+           headerTitleAlign: 'left',
+          headerBackVisible: false,
+          gestureEnabled: false,
   }} />
-          <Stack.Screen name="Post" component={Post} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu /> , headerLeft: () => null,
-    gestureEnabled: false,
+          <Stack.Screen name="Post" component={Post} options={{ headerBackTitleVisible:false  ,
+           headerTitleAlign: 'left',
+          headerBackVisible: false,
+          gestureEnabled: false,
   }} />
-          <Stack.Screen name="About" component={About} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
-    gestureEnabled: false,
+          <Stack.Screen name="About" component={About} options={{ headerBackTitleVisible:false , 
+          headerTitleAlign: 'left',
+          headerBackVisible: false,
+          gestureEnabled: false,
   }} />
-  <Stack.Screen name="MyPosts" component={Myposts} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
-    gestureEnabled: false,
+  <Stack.Screen name="MyPosts" component={Myposts} options={{ headerBackTitleVisible:false , 
+   headerTitleAlign: 'left',
+          headerBackVisible: false,
+          gestureEnabled: false,
   }} />
-          <Stack.Screen name="Account" component={Account} options={{ headerBackTitleVisible:false ,headerRight: () => <HeaderMenu />, headerLeft: () => null,
-    gestureEnabled: false,
+          <Stack.Screen name="Account" component={Account} options={{ headerBackTitleVisible:false ,
+            headerTitleAlign: 'left',
+          headerBackVisible: false,
+          gestureEnabled: false,
   }} />
-  <Stack.Screen name="EditProfileMenu" component={EditProfileMenu} options={{ title: 'My Application ', headerTitleAlign: 'left', headerRight: () => <HeaderMenu />, headerLeft: () => null,
+  <Stack.Screen name="EditProfileMenu" component={EditProfileMenu} options={{ title: 'My Application ', headerTitleAlign: 'left', headerLeft: () => null,
     gestureEnabled: false,
   }} />
           </>

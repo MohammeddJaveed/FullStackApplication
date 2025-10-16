@@ -30,7 +30,7 @@ const Login = ({navigation}) => {
             Alert.alert(data && data.message);
             navigation.navigate('Home');
             setLoading(false);
-           console.log("data",{email,password});
+          //  console.log("data",{email,password});
            setEmail('');
            setPassword('');  
         }catch(error){ 
