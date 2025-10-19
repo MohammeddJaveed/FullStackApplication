@@ -50,6 +50,7 @@ Built with a clean architecture separating frontend, backend, and shared logic f
 
 ### 📱 Frontend
 
+```
 app/
 ├── App.tsx
 ├── context/
@@ -71,11 +72,13 @@ app/
 │ ├── MyPosts.tsx
 │ ├── Post.tsx
 │ ├── About.tsx
+```
 
 ---
 
 ### ⚙️ Backend
 
+```
 server/
 ├── config/
 │ ├── db.js
@@ -92,6 +95,7 @@ server/
 │ ├── UserRoute.js
 ├── server.js
 ├── package.json
+```
 
 ---
 
